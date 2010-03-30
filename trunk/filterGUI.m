@@ -303,7 +303,7 @@ function analyseInSignal(signal, handles)
     tSpec = linspace(0,Fw,N/2);
     
     axes(handles.fftInAxes);
-    plot(tSpec,Y);
+    semilogy(tSpec,Y);
     set(handles.fftInAxes,'XLim',[0 3000]);
     
 function analyseOutSignal(signal, handles)
@@ -326,7 +326,7 @@ function analyseOutSignal(signal, handles)
     tSpec = linspace(0,Fw,N/2);
     
     axes(handles.fftUitAxes);
-    plot(tSpec,Y);
+    semilogy(tSpec,Y);
     set(handles.fftUitAxes,'XLim',[0 3000]);
    
 
