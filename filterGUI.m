@@ -22,7 +22,7 @@ function varargout = filterGUI(varargin)
 
 % Edit the above text to modify the response to help filterGUI
 
-% Last Modified by GUIDE v2.5 30-Mar-2010 18:15:18
+% Last Modified by GUIDE v2.5 30-Mar-2010 20:43:05
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -90,7 +90,7 @@ function Hd = makeFilterRe
 
 function Hd = makeFilterMi
     global Fs
-    Hd = makeBandPassFilter(Fs,660,640,678,698);
+    Hd = makeBandPassFilter(Fs,620,640,678,698);
 
 function Hd = makeFilterFa
     global Fs
@@ -106,14 +106,14 @@ function Hd = makeFilterLa
 
 function Hd = makeFilterSi
     global Fs
-    Hd = makeBandPassFilter(Fs,940,960,1015,995);
+    Hd = makeBandPassFilter(Fs,940,960,1015,1035);
 
 function Hd = makeFilterHogeDo
     global Fs
     Hd = makeBandPassFilter(Fs,997,1017,1076,1096);
 
     %-- This function preloads all filters
-function filterPreloader
+function filterPreloader(handles)
     global lageDoFilter;
     global reFilter;
     global miFilter;
@@ -122,15 +122,105 @@ function filterPreloader
     global laFilter;
     global siFilter;
     global hogeDoFilter;
-
-    lageDoFilter = makeFilterLageDo();
-    reFilter = makeFilterRe();
-    miFilter = makeFilterMi();
-    faFilter = makeFilterFa();
-    solFilter = makeFilterSol();
-    laFilter =  makeFilterLa();
-    siFilter =  makeFilterSi();
-    hogeDoFilter =  makeFilterHogeDo();
+    
+    loadFromFile = 1;
+    
+    if(isempty(get(lageDoFilter))) 
+        display('preloading ldo...');
+    	set(handles.statusBar, 'String', 'Preloading Lage Do Filter...');  
+        if(exist('lageDoFilter_matlab.mat', 'file') && loadFromFile)
+            load('lageDoFilter_matlab.mat', 'lageDoFilter');
+        else
+            lageDoFilter = makeFilterLageDo();
+            save('lageDoFilter_matlab.mat', 'lageDoFilter');
+        end
+        display('end preloading ldo...');
+    end
+    
+    if(isempty(get(reFilter))) 
+        display('preloading re...');
+        set(handles.statusBar, 'String', 'Preloading Re Filter...');
+        if(exist('reFilter_matlab.mat', 'file') && loadFromFile)
+            load('reFilter_matlab.mat', 'reFilter');
+        else
+            reFilter = makeFilterRe();
+            save('reFilter_matlab.mat', 'reFilter');
+        end
+        display('end preloading re...');
+    end
+    
+    if(isempty(get(miFilter))) 
+        display('preloading mi...');
+        set(handles.statusBar, 'String', 'Preloading Mi Filter...');
+        if(exist('miFilter_matlab.mat', 'file') && loadFromFile)
+            load('miFilter_matlab.mat', 'miFilter');
+        else
+            miFilter = makeFilterMi();
+            save('miFilter_matlab.mat', 'miFilter');
+        end
+        display('end preloading mi...');
+    end
+    
+    if(isempty(get(faFilter))) 
+        display('preloading fa...');
+        set(handles.statusBar, 'String', 'Preloading Fa Filter...');
+        if(exist('faFilter_matlab.mat', 'file') && loadFromFile)
+            load('faFilter_matlab.mat', 'faFilter');
+        else
+            faFilter = makeFilterFa();
+            save('faFilter_matlab.mat', 'faFilter');
+        end
+        display('end preloading fa...');
+    end
+    
+    if(isempty(get(solFilter)))    
+        display('preloading sol...');
+        set(handles.statusBar, 'String', 'Preloading Sol Filter...');
+        if(exist('solFilter_matlab.mat', 'file') && loadFromFile)
+            load('solFilter_matlab.mat', 'solFilter');
+        else
+            solFilter = makeFilterSol();
+            save('solFilter_matlab.mat', 'solFilter');
+        end
+        display('end preloading sol...');
+    end
+    
+    if(isempty(get(laFilter)))
+        display('preloading la...');
+        set(handles.statusBar, 'String', 'Preloading La Filter...');
+        if(exist('laFilter_matlab.mat', 'file') && loadFromFile)
+            load('laFilter_matlab.mat', 'laFilter');
+        else
+            laFilter = makeFilterLa();
+            save('laFilter_matlab.mat', 'laFilter');
+        end
+        display('end preloading la...');
+    end
+    
+    if(isempty(get(siFilter)))
+        display('preloading si...');
+        set(handles.statusBar, 'String', 'Preloading Si Filter...');
+        if(exist('siFilter_matlab.mat', 'file') && loadFromFile)
+            load('siFilter_matlab.mat', 'siFilter');
+        else
+            siFilter = makeFilterSi();
+            save('siFilter_matlab.mat', 'siFilter');
+        end
+        display('end preloading si...');
+    end
+    
+    if(isempty(get(hogeDoFilter)))
+        display('preloading hdo...');
+        set(handles.statusBar, 'String', 'Preloading Hoge Do Filter...');
+        if(exist('hogeDoFilter_matlab.mat', 'file') && loadFromFile)
+            load('hogeDoFilter_matlab.mat', 'hogeDoFilter');
+        else
+            hogeDoFilter = makeFilterHogeDo();
+            save('hogeDoFilter_matlab.mat', 'hogeDoFilter');
+        end
+        display('end preloading hdo...');
+    end    
+    set(handles.statusBar, 'String', 'All systems ready');
 
 
 function varargout = filterGUI_OutputFcn(hObject, eventdata, handles) 
@@ -142,6 +232,18 @@ function varargout = filterGUI_OutputFcn(hObject, eventdata, handles)
     % Get default command line output from handles structure
     varargout{1} = handles.output;
 
+function enableGuiElements(handles)
+    set(handles.preloadFilters, 'Enable', 'on');
+    set(handles.lageDoCheckbox, 'Enable', 'on');
+    set(handles.reCheckbox, 'Enable', 'on');
+    set(handles.miCheckbox, 'Enable', 'on');
+    set(handles.faCheckbox, 'Enable', 'on');
+    set(handles.solCheckbox, 'Enable', 'on');
+    set(handles.laCheckbox, 'Enable', 'on');
+    set(handles.siCheckbox, 'Enable', 'on');
+    set(handles.hogeDoCheckbox, 'Enable', 'on');
+    set(handles.filterPushbutton, 'Enable', 'on');
+    
 
 % --- Executes on button press in browsewavPushbutton.
 function browsewavPushbutton_Callback(hObject, eventdata, handles)
@@ -155,19 +257,27 @@ function browsewavPushbutton_Callback(hObject, eventdata, handles)
     wave = uigetfile('*.wav','Selecteer een wav file');
     set(handles.wavText, 'String', wave);
     [y,Fs,nBits] = wavread(wave);
+    
     N = length(y);
     duration = N / Fs;
     t = [1/Fs:1/Fs:duration];
 
+    enableGuiElements(handles);
+    
     inSignal = y;
     timeVec = t;
 
     axes(handles.waveInAxes);
+    set(handles.statusBar, 'String', 'Plotting input signal...');
     plot(timeVec, inSignal);
+   
+    set(handles.statusBar, 'String', 'Analysing input signal spectrum...');
+    analyseInSignal(inSignal, handles);
+    set(handles.statusBar, 'String', 'All systems ready');
     
-    analyse(inSignal, handles);
+    %makeFilterLageDo();
 
-function analyse(signal, handles)
+function analyseInSignal(signal, handles)
     global Fs;
     N = length(signal);
     Ta = N/Fs;
@@ -187,6 +297,28 @@ function analyse(signal, handles)
     tSpec = linspace(0,Fw,N/2);
     
     axes(handles.fftInAxes);
+    plot(tSpec,Y);
+    
+function analyseOutSignal(signal, handles)
+    global Fs;
+    N = length(signal);
+    Ta = N/Fs;
+    
+    Y = fft(signal,N);
+    % Normalize data
+    Y = Y/N;
+    % Get amplitude (amplitude -> abs, phase -> angle)
+    Y = abs(Y);
+    % Two-sided
+    % -> symmetrical: positive half followed by negative half
+    % -> convert to single-sided (take only positive half and multiply by 2)
+    Y = 2*Y(1:N/2);
+    
+    % Generate x vector
+    Fw = N/(2*Ta);
+    tSpec = linspace(0,Fw,N/2);
+    
+    axes(handles.fftUitAxes);
     plot(tSpec,Y);
 
 % --- Executes on button press in lageDoCheckbox.
@@ -273,67 +405,85 @@ function filterPushbutton_Callback(hObject, eventdata, handles)
     global hogeDoFilter;
     global inSignal;
     global timeVec;
-    outSignal = [];
+    global outSignal;
 
 
     % --- Load Filters
-    if get(handles.lageDoCheckbox, 'Value')==1
-        if(isempty(get(lageDoFilter))) 
-            lageDoFilter = makeFilterLageDo();
-        end
-        outSignal = outSignal + filter(lageDoFilter,inSignal);
-    end
-    if get(handles.reCheckbox, 'Value')==1
-        if(isempty(get(reFilter))) 
-            reFilter = makeFilterRe();
-        end
-        outSignal = outSignal + filter(reFilter,inSignal);
-    end
-    if get(handles.miCheckbox, 'Value')==1
-        if(isempty(get(miFilter))) 
-            miFilter = makeFilterMi();
-        end
-        outSignal = outSignal + filter(miFilter,inSignal);
-    end
-    if get(handles.faCheckbox, 'Value')==1
-        if(isempty(get(faFilter))) 
-            faFilter = makeFilterFa();
-        end
-        outSignal = outSignal + filter(faFilter,inSignal);
-    end
-    if get(handles.solCheckbox, 'Value')==1
-        if(isempty(get(solFilter))) 
-            solFilter = makeFilterSol();
-        end
-        outSignal = outSignal + filter(solFilter,inSignal);
-    end
-    if get(handles.laCheckbox, 'Value')==1
-        if(isempty(get(laFilter))) 
-            laFilter = makeFilterLa();
-        end
-        outSignal = outSignal + filter(laFilter,inSignal);
-    end
-    if get(handles.siCheckbox, 'Value')==1
-        if(isempty(get(siFilter))) 
-            siFilter = makeFilterSi();
-        end
-        outSignal = outSignal + filter(siFilter,inSignal);
-    end
-    if get(handles.hogeDoCheckbox, 'Value')==1
-        if(isempty(get(hogeDoFilter))) 
-            hogeDoFilter = makeFilterHogeDo();
-        end
-        outSignal = outSignal + filter(hogeDoFilter,inSignal);
-    end
-    plot(timeVec,outSignal);
+%     if get(handles.lageDoCheckbox, 'Value')==1
+%         if(isempty(get(lageDoFilter))) 
+%             lageDoFilter = makeFilterLageDo();
+%         end
+%         outSignal = outSignal + filter(lageDoFilter,inSignal);
+%     end
+%     if get(handles.reCheckbox, 'Value')==1
+%         if(isempty(get(reFilter))) 
+%             reFilter = makeFilterRe();
+%         end
+%         outSignal = outSignal + filter(reFilter,inSignal);
+%     end
+%     if get(handles.miCheckbox, 'Value')==1
+%         if(isempty(get(miFilter))) 
+%             miFilter = makeFilterMi();
+%         end
+%         outSignal = outSignal + filter(miFilter,inSignal);
+%     end
+%     if get(handles.faCheckbox, 'Value')==1
+%         if(isempty(get(faFilter))) 
+%             faFilter = makeFilterFa();
+%         end
+%         outSignal = outSignal + filter(faFilter,inSignal);
+%     end
+%     if get(handles.solCheckbox, 'Value')==1
+%         if(isempty(get(solFilter))) 
+%             solFilter = makeFilterSol();
+%         end
+%         outSignal = outSignal + filter(solFilter,inSignal);
+%     end
+%     if get(handles.laCheckbox, 'Value')==1
+%         if(isempty(get(laFilter))) 
+%             laFilter = makeFilterLa();
+%         end
+%         outSignal = outSignal + filter(laFilter,inSignal);
+%     end
+%     if get(handles.siCheckbox, 'Value')==1
+%         if(isempty(get(siFilter))) 
+%             siFilter = makeFilterSi();
+%         end
+%         outSignal = outSignal + filter(siFilter,inSignal);
+%     end
+%     if get(handles.hogeDoCheckbox, 'Value')==1
+%         if(isempty(get(hogeDoFilter))) 
+%             hogeDoFilter = makeFilterHogeDo();
+%         end
+%         outSignal = outSignal + filter(hogeDoFilter,inSignal);
+%     end
+     axes(handles.waveUitAxes);
+     plot(timeVec,outSignal);
 
 % --- Executes on button press in preloadFilters.
 function preloadFilters_Callback(hObject, eventdata, handles)
-filterPreloader();
+global Fs;
+display(Fs);
+filterPreloader(handles);
 
 
 % --- Executes on button press in pushbutton3.
 function pushbutton3_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in preloadFilters.
+function filterPreload_Callback(hObject, eventdata, handles)
+% hObject    handle to preloadFilters (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- If Enable == 'on', executes on mouse press in 5 pixel border.
+% --- Otherwise, executes on mouse press in 5 pixel border or over filterPushbutton.
+function filterPushbutton_ButtonDownFcn(hObject, eventdata, handles)
+% hObject    handle to filterPushbutton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
