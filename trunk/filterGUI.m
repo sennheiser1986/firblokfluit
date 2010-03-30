@@ -484,7 +484,6 @@ function filterPushbutton_Callback(hObject, eventdata, handles)
      set(handles.statusBar, 'String', 'Analysing output signal...');
      analyseOutSignal(outSignal, handles);
      set(handles.statusBar, 'String', 'All systems ready');
-     wavwrite(outSignal, Fs, 'out.wav');
 
 % --- Executes on button press in preloadFilters.
 function preloadFilters_Callback(hObject, eventdata, handles)
