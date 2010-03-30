@@ -266,6 +266,8 @@ function browsewavPushbutton_Callback(hObject, eventdata, handles)
     
     inSignal = y;
     timeVec = t;
+    
+    outSignal = zeros(size(inSignal));
 
     axes(handles.waveInAxes);
     set(handles.statusBar, 'String', 'Plotting input signal...');
@@ -405,60 +407,61 @@ function filterPushbutton_Callback(hObject, eventdata, handles)
     global hogeDoFilter;
     global inSignal;
     global timeVec;
-    global outSignal;
 
+    outSignal = zeros(size(inSignal));
 
     % --- Load Filters
-%     if get(handles.lageDoCheckbox, 'Value')==1
-%         if(isempty(get(lageDoFilter))) 
-%             lageDoFilter = makeFilterLageDo();
-%         end
-%         outSignal = outSignal + filter(lageDoFilter,inSignal);
-%     end
-%     if get(handles.reCheckbox, 'Value')==1
-%         if(isempty(get(reFilter))) 
-%             reFilter = makeFilterRe();
-%         end
-%         outSignal = outSignal + filter(reFilter,inSignal);
-%     end
-%     if get(handles.miCheckbox, 'Value')==1
-%         if(isempty(get(miFilter))) 
-%             miFilter = makeFilterMi();
-%         end
-%         outSignal = outSignal + filter(miFilter,inSignal);
-%     end
-%     if get(handles.faCheckbox, 'Value')==1
-%         if(isempty(get(faFilter))) 
-%             faFilter = makeFilterFa();
-%         end
-%         outSignal = outSignal + filter(faFilter,inSignal);
-%     end
-%     if get(handles.solCheckbox, 'Value')==1
-%         if(isempty(get(solFilter))) 
-%             solFilter = makeFilterSol();
-%         end
-%         outSignal = outSignal + filter(solFilter,inSignal);
-%     end
-%     if get(handles.laCheckbox, 'Value')==1
-%         if(isempty(get(laFilter))) 
-%             laFilter = makeFilterLa();
-%         end
-%         outSignal = outSignal + filter(laFilter,inSignal);
-%     end
-%     if get(handles.siCheckbox, 'Value')==1
-%         if(isempty(get(siFilter))) 
-%             siFilter = makeFilterSi();
-%         end
-%         outSignal = outSignal + filter(siFilter,inSignal);
-%     end
-%     if get(handles.hogeDoCheckbox, 'Value')==1
-%         if(isempty(get(hogeDoFilter))) 
-%             hogeDoFilter = makeFilterHogeDo();
-%         end
-%         outSignal = outSignal + filter(hogeDoFilter,inSignal);
-%     end
+    if get(handles.lageDoCheckbox, 'Value')==1
+        if(isempty(get(lageDoFilter))) 
+            lageDoFilter = makeFilterLageDo();
+        end
+        outSignal = outSignal + filter(lageDoFilter,inSignal);
+    end
+    if get(handles.reCheckbox, 'Value')==1
+        if(isempty(get(reFilter))) 
+            reFilter = makeFilterRe();
+        end
+        outSignal = outSignal + filter(reFilter,inSignal);
+    end
+    if get(handles.miCheckbox, 'Value')==1
+        if(isempty(get(miFilter))) 
+            miFilter = makeFilterMi();
+        end
+        outSignal = outSignal + filter(miFilter,inSignal);
+    end
+    if get(handles.faCheckbox, 'Value')==1
+        if(isempty(get(faFilter))) 
+            faFilter = makeFilterFa();
+        end
+        outSignal = outSignal + filter(faFilter,inSignal);
+    end
+    if get(handles.solCheckbox, 'Value')==1
+        if(isempty(get(solFilter))) 
+            solFilter = makeFilterSol();
+        end
+        outSignal = outSignal + filter(solFilter,inSignal);
+    end
+    if get(handles.laCheckbox, 'Value')==1
+        if(isempty(get(laFilter))) 
+            laFilter = makeFilterLa();
+        end
+        outSignal = outSignal + filter(laFilter,inSignal);
+    end
+    if get(handles.siCheckbox, 'Value')==1
+        if(isempty(get(siFilter))) 
+            siFilter = makeFilterSi();
+        end
+        outSignal = outSignal + filter(siFilter,inSignal);
+    end
+    if get(handles.hogeDoCheckbox, 'Value')==1
+        if(isempty(get(hogeDoFilter))) 
+            hogeDoFilter = makeFilterHogeDo();
+        end
+        outSignal = outSignal + filter(hogeDoFilter,inSignal);
+    end
      axes(handles.waveUitAxes);
      plot(timeVec,outSignal);
+     analyseOutSignal(outSignal, handles);
 
 % --- Executes on button press in preloadFilters.
 function preloadFilters_Callback(hObject, eventdata, handles)
