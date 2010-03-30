@@ -22,7 +22,7 @@ function varargout = filterGUI(varargin)
 
 % Edit the above text to modify the response to help filterGUI
 
-% Last Modified by GUIDE v2.5 25-Mar-2010 11:31:45
+% Last Modified by GUIDE v2.5 30-Mar-2010 17:07:59
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -179,6 +179,3 @@ end
 if get(handles.hogeDoCheckbox, 'Value')==1
     %blablabla
 end
-
-
-
