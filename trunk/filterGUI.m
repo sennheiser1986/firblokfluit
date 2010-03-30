@@ -22,7 +22,7 @@ function varargout = filterGUI(varargin)
 
 % Edit the above text to modify the response to help filterGUI
 
-% Last Modified by GUIDE v2.5 30-Mar-2010 20:43:05
+% Last Modified by GUIDE v2.5 30-Mar-2010 23:52:15
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -243,7 +243,7 @@ function enableGuiElements(handles)
     set(handles.siCheckbox, 'Enable', 'on');
     set(handles.hogeDoCheckbox, 'Enable', 'on');
     set(handles.filterPushbutton, 'Enable', 'on');
-    
+    set(handles.playInSignal, 'Enable', 'on');
 
 % --- Executes on button press in browsewavPushbutton.
 function browsewavPushbutton_Callback(hObject, eventdata, handles)
@@ -254,6 +254,9 @@ function browsewavPushbutton_Callback(hObject, eventdata, handles)
     global timeVec;
     global Fs;
 
+    % disable play out signal button
+    set(handles.playOutSignal, 'Enable', 'off');
+    
     wave = uigetfile('*.wav','Selecteer een wav file');
     set(handles.wavText, 'String', wave);
     [y,Fs,nBits] = wavread(wave);
@@ -277,7 +280,8 @@ function browsewavPushbutton_Callback(hObject, eventdata, handles)
     analyseInSignal(inSignal, handles);
     set(handles.statusBar, 'String', 'All systems ready');
     
-    %makeFilterLageDo();
+    cla(handles.waveUitAxes,'reset');
+    cla(handles.fftUitAxes,'reset');
 
 function analyseInSignal(signal, handles)
     global Fs;
@@ -300,6 +304,7 @@ function analyseInSignal(signal, handles)
     
     axes(handles.fftInAxes);
     plot(tSpec,Y);
+    set(handles.fftInAxes,'XLim',[0 3000]);
     
 function analyseOutSignal(signal, handles)
     global Fs;
@@ -322,6 +327,8 @@ function analyseOutSignal(signal, handles)
     
     axes(handles.fftUitAxes);
     plot(tSpec,Y);
+    set(handles.fftUitAxes,'XLim',[0 3000]);
+   
 
 % --- Executes on button press in lageDoCheckbox.
 function lageDoCheckbox_Callback(hObject, eventdata, handles)
@@ -407,8 +414,15 @@ function filterPushbutton_Callback(hObject, eventdata, handles)
     global hogeDoFilter;
     global inSignal;
     global timeVec;
-
+    global Fs;
+    global outSignal;
+    
     outSignal = zeros(size(inSignal));
+    % disable play out signal button
+    set(handles.playOutSignal, 'Enable', 'off');
+    
+    set(handles.statusBar, 'String', 'Applying Filters...');
+    
 
     % --- Load Filters
     if get(handles.lageDoCheckbox, 'Value')==1
@@ -459,9 +473,18 @@ function filterPushbutton_Callback(hObject, eventdata, handles)
         end
         outSignal = outSignal + filter(hogeDoFilter,inSignal);
     end
+    
+    % enable play out signal button
+    set(handles.playOutSignal, 'Enable', 'on');
+
+    
+    set(handles.statusBar, 'String', 'Plotting output signal...');
      axes(handles.waveUitAxes);
      plot(timeVec,outSignal);
+     set(handles.statusBar, 'String', 'Analysing output signal...');
      analyseOutSignal(outSignal, handles);
+     set(handles.statusBar, 'String', 'All systems ready');
+     wavwrite(outSignal, Fs, 'out.wav');
 
 % --- Executes on button press in preloadFilters.
 function preloadFilters_Callback(hObject, eventdata, handles)
@@ -490,3 +513,23 @@ function filterPushbutton_ButtonDownFcn(hObject, eventdata, handles)
 % hObject    handle to filterPushbutton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in playOutSignal.
+function playOutSignal_Callback(hObject, eventdata, handles)
+% hObject    handle to playOutSignal (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global outSignal;
+global Fs;
+sound(outSignal, Fs);
+
+
+% --- Executes on button press in playInSignal.
+function playInSignal_Callback(hObject, eventdata, handles)
+% hObject    handle to playInSignal (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global inSignal;
+global Fs;
+sound(inSignal, Fs);
