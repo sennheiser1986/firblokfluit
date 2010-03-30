@@ -1,4 +1,8 @@
 function BANDPASS1
+global reFilter
+global lageDoFilter
+global miFilter
+global yDo
 
 [yDo,FsDo,nBits] = wavread('lDo.wav');
 NDo = length(yDo);
@@ -34,6 +38,21 @@ plot(tDo, yLageDo_Re);
 subplot(4,2,6);
 yRe_Re = filter(reFilter,yRe);
 plot(tRe,yRe_Re);
+
+testFilter;
+
+function testFilter
+global reFilter;
+global lageDoFilter;
+global miFilter;
+global yDo;
+
+if(isempty(get(reFilter)))
+    disp('refilter is not defined');
+end
+if(isempty(get(miFilter))) 
+    disp('mifilter is not defined');
+end
 
 function Hd = makeBandPassFilter(Fs, Fstop1, Fpass1, Fpass2, Fstop2)
 Dstop1 = 0.0001;          % First Stopband Attenuation
