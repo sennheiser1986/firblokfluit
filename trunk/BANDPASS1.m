@@ -52,28 +52,28 @@ Hd = dfilt.dffir(b);
 % [EOF]
 
 function Hd = makeFilterLageDo(Fs)
-Hd = makeBandPassFilter(Fs,488,508,537,557);
+Hd = makeBandPassFilter(Fs,488,508,538,557);
 
 function Hd = makeFilterRe(Fs)
-Hd = makeBandPassFilter(Fs,550,570,603,623);
+Hd = makeBandPassFilter(Fs,550,571,604,623);
 
 function Hd = makeFilterMi(Fs)
-Hd = makeBandPassFilter(Fs,618,622,696,670);
+Hd = makeBandPassFilter(Fs,660,640,678,698);
 
 function Hd = makeFilterFa(Fs)
-Hd = makeBandPassFilter(Fs,655,659,737,741);
+Hd = makeBandPassFilter(Fs,659,679,718,738);
 
 function Hd = makeFilterSol(Fs)
-Hd = makeBandPassFilter(Fs,736,740,828,834);
+Hd = makeBandPassFilter(Fs,742,762,806,826);
 
 function Hd = makeFilterLa(Fs)
-Hd = makeBandPassFilter(Fs,826,831,929,935);
+Hd = makeBandPassFilter(Fs,835,855,904,924);
 
 function Hd = makeFilterSi(Fs)
-Hd = makeBandPassFilter(Fs,927,932,1043,1048);
+Hd = makeBandPassFilter(Fs,940,960,1015,995);
 
 function Hd = makeFilterHogeDo(Fs)
-Hd = makeBandPassFilter(Fs,982,987,1105,1111);
+Hd = makeBandPassFilter(Fs,997,1017,1076,1096);
 
 
 
