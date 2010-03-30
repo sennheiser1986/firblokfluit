@@ -19,8 +19,18 @@ plot(tRe,yDo);
 subplot(4,2,2);
 plot(tRe, yRe);
 
+display('preloading...');
 lageDoFilter = makeFilterLageDo(FsRe);
+save('lageDoFilter_matlab.mat', 'lageDoFilter');
 reFilter = makeFilterRe(FsRe);
+save('reFilter_matlab.mat', 'reFilter');
+display('end preloading...');
+
+clear lageDoFilter;
+clear reFilter;
+
+load('lageDoFilter_matlab.mat', 'lageDoFilter');
+load('reFilter_matlab.mat', 'reFilter');
 
 subplot(4,2,3);
 yLageDo_LageDo = filter(lageDoFilter,yDo);
@@ -77,7 +87,7 @@ function Hd = makeFilterRe(Fs)
 Hd = makeBandPassFilter(Fs,550,571,604,623);
 
 function Hd = makeFilterMi(Fs)
-Hd = makeBandPassFilter(Fs,660,640,678,698);
+Hd = makeBandPassFilter(Fs,620,640,678,698);
 
 function Hd = makeFilterFa(Fs)
 Hd = makeBandPassFilter(Fs,659,679,718,738);
