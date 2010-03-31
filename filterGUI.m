@@ -58,6 +58,8 @@ handles.output = hObject;
 % Update handles structure
 guidata(hObject, handles);
 
+checkFilters(handles);
+
 % UIWAIT makes filterGUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
@@ -135,6 +137,9 @@ function filterPreloader(handles)
             save('lageDoFilter_matlab.mat', 'lageDoFilter');
         end
         display('end preloading ldo...');
+        set(handles.lageDoCheckbox, 'ForegroundColor', [0 0 1]);
+    else
+        set(handles.lageDoCheckbox, 'ForegroundColor', [0 0 1]);
     end
     
     if(isempty(get(reFilter))) 
@@ -147,7 +152,11 @@ function filterPreloader(handles)
             save('reFilter_matlab.mat', 'reFilter');
         end
         display('end preloading re...');
+        set(handles.reCheckbox, 'ForegroundColor', [0 0 1]);
+    else
+        set(handles.reCheckbox, 'ForegroundColor', [0 0 1]);
     end
+    
     
     if(isempty(get(miFilter))) 
         display('preloading mi...');
@@ -159,6 +168,9 @@ function filterPreloader(handles)
             save('miFilter_matlab.mat', 'miFilter');
         end
         display('end preloading mi...');
+        set(handles.miCheckbox, 'ForegroundColor', [0 0 1]);
+    else
+        set(handles.miCheckbox, 'ForegroundColor', [0 0 1]);
     end
     
     if(isempty(get(faFilter))) 
@@ -171,6 +183,9 @@ function filterPreloader(handles)
             save('faFilter_matlab.mat', 'faFilter');
         end
         display('end preloading fa...');
+        set(handles.faCheckbox, 'ForegroundColor', [0 0 1]);
+    else
+        set(handles.faCheckbox, 'ForegroundColor', [0 0 1]);
     end
     
     if(isempty(get(solFilter)))    
@@ -183,6 +198,9 @@ function filterPreloader(handles)
             save('solFilter_matlab.mat', 'solFilter');
         end
         display('end preloading sol...');
+        set(handles.solCheckbox, 'ForegroundColor', [0 0 1]);
+    else
+        set(handles.solCheckbox, 'ForegroundColor', [0 0 1]);
     end
     
     if(isempty(get(laFilter)))
@@ -195,6 +213,9 @@ function filterPreloader(handles)
             save('laFilter_matlab.mat', 'laFilter');
         end
         display('end preloading la...');
+        set(handles.laCheckbox, 'ForegroundColor', [0 0 1]);
+    else
+        set(handles.laCheckbox, 'ForegroundColor', [0 0 1]);
     end
     
     if(isempty(get(siFilter)))
@@ -207,6 +228,9 @@ function filterPreloader(handles)
             save('siFilter_matlab.mat', 'siFilter');
         end
         display('end preloading si...');
+        set(handles.siCheckbox, 'ForegroundColor', [0 0 1]);
+    else
+        set(handles.siCheckbox, 'ForegroundColor', [0 0 1]);
     end
     
     if(isempty(get(hogeDoFilter)))
@@ -219,6 +243,9 @@ function filterPreloader(handles)
             save('hogeDoFilter_matlab.mat', 'hogeDoFilter');
         end
         display('end preloading hdo...');
+        set(handles.hogeDoCheckbox, 'ForegroundColor', [0 0 1]);
+    else
+        set(handles.hogeDoCheckbox, 'ForegroundColor', [0 0 1]);
     end    
     set(handles.statusBar, 'String', 'All systems ready');
 
@@ -244,6 +271,63 @@ function enableGuiElements(handles)
     set(handles.hogeDoCheckbox, 'Enable', 'on');
     set(handles.filterPushbutton, 'Enable', 'on');
     set(handles.playInSignal, 'Enable', 'on');
+    
+function checkFilters(handles)
+    global lageDoFilter;
+    global reFilter;
+    global miFilter;
+    global faFilter;
+    global solFilter;
+    global laFilter;
+    global siFilter;
+    global hogeDoFilter;
+    if(isempty(get(lageDoFilter))) 
+        set(handles.lageDoCheckbox, 'ForegroundColor', [0 0 0]);
+    else
+        set(handles.lageDoCheckbox, 'ForegroundColor', [0 0 1]);
+    end
+    
+    if(isempty(get(reFilter))) 
+        set(handles.reCheckbox, 'ForegroundColor', [0 0 0]);
+    else
+        set(handles.reCheckbox, 'ForegroundColor', [0 0 1]);
+    end
+    
+    if(isempty(get(miFilter))) 
+        set(handles.miCheckbox, 'ForegroundColor', [0 0 0]);
+    else
+        set(handles.miCheckbox, 'ForegroundColor', [0 0 1]);
+    end
+    
+    if(isempty(get(faFilter))) 
+        set(handles.faCheckbox, 'ForegroundColor', [0 0 0]);
+    else
+        set(handles.faCheckbox, 'ForegroundColor', [0 0 1]);
+    end
+    
+    if(isempty(get(solFilter))) 
+        set(handles.solCheckbox, 'ForegroundColor', [0 0 0]);
+    else
+        set(handles.solCheckbox, 'ForegroundColor', [0 0 1]);
+    end
+    
+    if(isempty(get(laFilter))) 
+        set(handles.laCheckbox, 'ForegroundColor', [0 0 0]);
+    else
+        set(handles.laCheckbox, 'ForegroundColor', [0 0 1]);
+    end
+    
+    if(isempty(get(siFilter))) 
+        set(handles.siCheckbox, 'ForegroundColor', [0 0 0]);
+    else
+        set(handles.siCheckbox, 'ForegroundColor', [0 0 1]);
+    end
+    
+    if(isempty(get(hogeDoFilter))) 
+        set(handles.hogeDoCheckbox, 'ForegroundColor', [0 0 0]);
+    else
+        set(handles.hogeDoCheckbox, 'ForegroundColor', [0 0 1]);
+    end
 
 % --- Executes on button press in browsewavPushbutton.
 function browsewavPushbutton_Callback(hObject, eventdata, handles)
