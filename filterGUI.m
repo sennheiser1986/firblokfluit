@@ -501,6 +501,9 @@ function filterPushbutton_Callback(hObject, eventdata, handles)
     global Fs;
     global outSignal;
     
+    cla(handles.waveUitAxes,'reset');
+    cla(handles.fftUitAxes,'reset');
+    
     outSignal = zeros(size(inSignal));
     % disable play out signal button
     set(handles.playOutSignal, 'Enable', 'off');
