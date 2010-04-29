@@ -67,20 +67,21 @@ checkFilters(handles);
 % --- Outputs from this function are returned to the command line.
 
 function Hd = makeBandPassFilter(Fs, Fstop1, Fpass1, Fpass2, Fstop2)
-    Dstop1 = 0.0001;          % First Stopband Attenuation
-    Dpass  = 0.057501127785;  % Passband Ripple
-    Dstop2 = 0.0001;          % Second Stopband Attenuation
-    dens   = 20;              % Density Factor
+    Nb     = 8;                   % Numerator Order
+    Na     = 8;                   % Denominator Order
+    Wstop1 = 1;                   % First Stopband Weight
+    Wpass  = 1;                   % Passband Weight
+    Wstop2 = 1;                   % Second Stopband Weight
+    P      = [2 128];             % P'th norm
+    dens   = 20;                  % Density Factor
 
-    % Calculate the order from the parameters using FIRPMORD.
-    [N, Fo, Ao, W] = firpmord([Fstop1 Fpass1 Fpass2 Fstop2]/(Fs/2), [0 1 ...
-                              0], [Dstop1 Dpass Dstop2]);
+    F = [0 Fstop1 Fpass1 Fpass2 Fstop2 Fs/2]/(Fs/2);
 
-    % Calculate the coefficients using the FIRPM function.
-    b  = firpm(N, Fo, Ao, W, {dens});
-    Hd = dfilt.dffir(b);
-
-    % [EOF]
+    % Calculate the coefficients using the IIRLPNORM function.
+    [b,a,err,sos_var,g] = iirlpnorm(Nb, Na, F, F, [0 0 1 1 0 0], [Wstop1 ...
+                                    Wstop1 Wpass Wpass Wstop2 Wstop2], P, ...
+                                    {dens});
+    Hd                  = dfilt.df2sos(sos_var, g);
 
 function Hd = makeFilterLageDo
     global Fs
