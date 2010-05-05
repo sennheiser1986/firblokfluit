@@ -109,7 +109,7 @@ function browsewavPushbutton_Callback(hObject, eventdata, handles)
     cla(handles.fftUitAxes,'reset');
 
 function enableGuiElements(handles)
-    set(handles.playInSignal, 'Enable', 'on');
+    set(handles.playInSignal, 'Enable', 'on');    
     set(handles.goButton, 'Enable', 'on');
     
 function analyseInSignal(signal, handles)
@@ -180,12 +180,14 @@ sound(inSignal, Fs);
 
 function numCrossings = findZeroCrossings(signal)
     global Fs;
+    N = length(signal);
+    signalDuration = N/Fs;
     
     numCrossings = 0;
     prev = 0;
-    start = 0.5 * Fs;
-    duration = 0.2 * Fs;
-    thresh = 0.00001;
+    start = 0.5 * Fs * signalDuration;
+    duration = 0.2 * Fs * signalDuration;
+    thresh = 0.00000001;
     
     max(signal)
     % increment counter whenever sign changes
@@ -219,7 +221,8 @@ hpFilterHd = highpassFilter();
 
 outSignal = filter(lpFilterHd, inSignal);
 outSignal = filter(hpFilterHd, outSignal);
-outSignal = smooth(outSignal,40);
+%smoothing doesnt help
+%outSignal = smooth(outSignal,40);
 
 axes(handles.waveUitAxes);
 plot(timeVec, outSignal);
@@ -237,7 +240,16 @@ numNote = getClosestNote(estFreq);
 note = notes(numNote);
 set(handles.noteDisplay, 'String', note);
 
+idealFreq = freqs(numNote);
+set(handles.idealFrequency, 'String', idealFreq);
+
+difference = estFreq - idealFreq;
+set(handles.freqDifference, 'String', difference);
+
+
 analyseOutSignal(outSignal,handles);
+
+set(handles.playOutSignal, 'Enable', 'on');
    
 
 function numNote = getClosestNote(frequency)
@@ -262,8 +274,8 @@ function Hd = lowpassFilter()
 % All frequency values are in Hz.
 global Fs;
 
-Fpass = 1050;        % Passband Frequency
-Fstop = 1100;        % Stopband Frequency
+Fpass = 1100;        % Passband Frequency
+Fstop = 1150;        % Stopband Frequency
 Apass = 1;           % Passband Ripple (dB)
 Astop = 80;          % Stopband Attenuation (dB)
 match = 'passband';  % Band to match exactly
