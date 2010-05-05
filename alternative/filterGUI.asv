@@ -180,6 +180,9 @@ sound(inSignal, Fs);
 
 function numCrossings = findZeroCrossings(signal)
     global Fs;
+    global start;
+    global duration;
+    
     N = length(signal);
     signalDuration = N/Fs;
     
@@ -187,7 +190,7 @@ function numCrossings = findZeroCrossings(signal)
     prev = 0;
     start = 0.5 * Fs * signalDuration;
     duration = 0.2 * Fs * signalDuration;
-    thresh = 0.0001;
+    thresh = 0.00000001;
     
     max(signal)
     % increment counter whenever sign changes
@@ -212,6 +215,8 @@ global notes;
 global inSignal;
 global outSignal;
 global timeVec;
+global duration;
+global start;
 
 freqs = [523.25, 587.33, 659.26, 698.46, 783.99, 880.00, 987.77, 1046.50];
 notes = {'lDo', 're', 'mi', 'fa', 'sol', 'la', 'si', 'hDo'};
@@ -219,37 +224,59 @@ notes = {'lDo', 're', 'mi', 'fa', 'sol', 'la', 'si', 'hDo'};
 lpFilterHd = lowpassFilter();
 hpFilterHd = highpassFilter();
 
+%remove low frequencies
 outSignal = filter(lpFilterHd, inSignal);
+
+%remove higher frequencies (harmonics)
 outSignal = filter(hpFilterHd, outSignal);
 %smoothing doesnt help
 %outSignal = smooth(outSignal,40);
 
+%plot output signal
 axes(handles.waveUitAxes);
 plot(timeVec, outSignal);
 
-numCrossingsInSignal = findZeroCrossings(inSignal);
-display(numCrossingsInSignal);
+%analyse and plot output signal
+analyseOutSignal(outSignal,handles);
 
+%count the number of zero crossings
 numCrossingsOutSignal = findZeroCrossings(outSignal);
-display(numCrossingsOutSignal);
 
+%frequency = half of number of zero crossings
 estFreq = numCrossingsOutSignal / 2;
 set(handles.estimatedFrequency, 'String', estFreq);
 
+%find closest match from frequency array
 numNote = getClosestNote(estFreq);
 note = notes(numNote);
 set(handles.noteDisplay, 'String', note);
 
+%get literal note name
 idealFreq = freqs(numNote);
 set(handles.idealFrequency, 'String', idealFreq);
 
-difference = estFreqidealFreq
-
-
-analyseOutSignal(outSignal,handles);
+%calculate difference between estimated and ideal frequency
+difference = estFreq - idealFreq;
+set(handles.freqDifference, 'String', difference);
 
 set(handles.playOutSignal, 'Enable', 'on');
-   
+
+%overlay region of intrest (the part of the signal which we have measured)
+%http://blogs.mathworks.com/desktop/2008/08/25/overlaying-information-on-a-
+%plot/
+dataAxes = axes(handles.waveUitAxes);
+plot(magic(3));
+invisibleAxes = axes('Visible','off','Position' ...
+    ,get(dataAxes,'Position'),'HitTest','off',...
+    'XLimMode','manual','YLimMode','manual');
+linkaxes([dataAxes invisibleAxes]);
+
+ylim = get(dataAxes,'ylim');
+ymin = ylim(1);
+ymax = ylim(2);
+
+rectangle('Parent',invisibleAxes,'Position',[1.6 5 .2 1],...
+    'EdgeColor',[1 .4 .4],'LineWidth',4);
 
 function numNote = getClosestNote(frequency)
 global freqs;

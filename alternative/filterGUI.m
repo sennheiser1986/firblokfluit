@@ -180,6 +180,9 @@ sound(inSignal, Fs);
 
 function numCrossings = findZeroCrossings(signal)
     global Fs;
+    global start;
+    global duration;
+    
     N = length(signal);
     signalDuration = N/Fs;
     
@@ -207,55 +210,82 @@ function goButton_Callback(hObject, eventdata, handles)
 % hObject    handle to goButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+global Fs;
 global freqs;
 global notes;
 global inSignal;
 global outSignal;
 global timeVec;
+global duration;
+global start;
 
 freqs = [523.25, 587.33, 659.26, 698.46, 783.99, 880.00, 987.77, 1046.50];
 notes = {'lDo', 're', 'mi', 'fa', 'sol', 'la', 'si', 'hDo'};
 
+set(handles.statusBar, 'String', 'Generating filters...');
 lpFilterHd = lowpassFilter();
 hpFilterHd = highpassFilter();
 
+%remove low frequencies
+set(handles.statusBar, 'String', 'Applying lowpassfilter...');
 outSignal = filter(lpFilterHd, inSignal);
+
+%remove higher frequencies (harmonics)
+set(handles.statusBar, 'String', 'Applying highpassfilter...');
 outSignal = filter(hpFilterHd, outSignal);
 %smoothing doesnt help
 %outSignal = smooth(outSignal,40);
 
+%plot output signal
+set(handles.statusBar, 'String', 'Plotting output signal...');
 axes(handles.waveUitAxes);
 plot(timeVec, outSignal);
 
-numCrossingsInSignal = findZeroCrossings(inSignal);
-display(numCrossingsInSignal);
+%analyse and plot output signal
+set(handles.statusBar, 'String', 'Analysing output signal...');
+analyseOutSignal(outSignal,handles);
 
+%count the number of zero crossings
+set(handles.statusBar, 'String', 'Counting the number of zero crossings...');
 numCrossingsOutSignal = findZeroCrossings(outSignal);
-display(numCrossingsOutSignal);
 
+%frequency = half of number of zero crossings
 estFreq = numCrossingsOutSignal / 2;
 set(handles.estimatedFrequency, 'String', estFreq);
 
+%find closest match from frequency array
 numNote = getClosestNote(estFreq);
 note = notes(numNote);
 set(handles.noteDisplay, 'String', note);
 
+%get literal note name
 idealFreq = freqs(numNote);
 set(handles.idealFrequency, 'String', idealFreq);
 
+%calculate difference between estimated and ideal frequency
 difference = estFreq - idealFreq;
 set(handles.freqDifference, 'String', difference);
 
-
-analyseOutSignal(outSignal,handles);
-
 set(handles.playOutSignal, 'Enable', 'on');
-   
+
+%overlay region of intrest (the part of the signal which we have measured)
+%http://blogs.mathworks.com/desktop/2008/08/25/overlaying-information-on-a-
+%plot/
+myDuration = duration / Fs;
+myStart = start / Fs;
+
+dataAxes = handles.waveUitAxes;
+ylim = get(dataAxes,'ylim');
+ymin = ylim(1);
+ymax = ylim(2);
+
+rectangle('Parent',dataAxes,'Position',[myStart ymin myDuration ymax-ymin],...
+    'EdgeColor',[1 .4 .4],'LineWidth',4);
 
 function numNote = getClosestNote(frequency)
 global freqs;
 %From:
-%http://desk.stinkpot.org:8080/tricks/index.php/2006/03/in-matlab-find-the-array-position-of-an-entry-closest-to-some-arbitrary-value/
+%http://desk.stinkpot.org:8080/tricks/index.php/2006/03 /in-matlab-find-the-array-position-of-an-entry-closest-to-some-arbitrary-value/
 [trash, array_position] = min(abs(freqs - frequency));
 numNote = array_position;
 
