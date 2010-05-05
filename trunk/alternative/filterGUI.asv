@@ -22,7 +22,7 @@ function varargout = filterGUI(varargin)
 
 % Edit the above text to modify the response to help filterGUI
 
-% Last Modified by GUIDE v2.5 04-May-2010 22:32:47
+% Last Modified by GUIDE v2.5 05-May-2010 01:14:02
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -109,7 +109,7 @@ function browsewavPushbutton_Callback(hObject, eventdata, handles)
     cla(handles.fftUitAxes,'reset');
 
 function enableGuiElements(handles)
-    set(handles.playInSignal, 'Enable', 'on');
+    set(handles.playInSignal, 'Enable', 'on');    
     set(handles.goButton, 'Enable', 'on');
     
 function analyseInSignal(signal, handles)
@@ -180,12 +180,14 @@ sound(inSignal, Fs);
 
 function numCrossings = findZeroCrossings(signal)
     global Fs;
+    N = length(signal);
+    signalDuration = N/Fs;
     
     numCrossings = 0;
     prev = 0;
-    start = 0.5 * Fs;
-    duration = 0.2 * Fs;
-    thresh = 0.00001;
+    start = 0.5 * Fs * signalDuration;
+    duration = 0.2 * Fs * signalDuration;
+    thresh = 0.0001;
     
     max(signal)
     % increment counter whenever sign changes
@@ -206,19 +208,21 @@ function goButton_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 global freqs;
+global notes;
 global inSignal;
 global outSignal;
 global timeVec;
 
 freqs = [523.25, 587.33, 659.26, 698.46, 783.99, 880.00, 987.77, 1046.50];
-
+notes = {'lDo', 're', 'mi', 'fa', 'sol', 'la', 'si', 'hDo'};
 
 lpFilterHd = lowpassFilter();
 hpFilterHd = highpassFilter();
 
 outSignal = filter(lpFilterHd, inSignal);
 outSignal = filter(hpFilterHd, outSignal);
-outSignal = smooth(outSignal,40);
+%smoothing doesnt help
+%outSignal = smooth(outSignal,40);
 
 axes(handles.waveUitAxes);
 plot(timeVec, outSignal);
@@ -228,10 +232,31 @@ display(numCrossingsInSignal);
 
 numCrossingsOutSignal = findZeroCrossings(outSignal);
 display(numCrossingsOutSignal);
-numCrossingsOutSignal/1.6
+
+estFreq = numCrossingsOutSignal / 2;
+set(handles.estimatedFrequency, 'String', estFreq);
+
+numNote = getClosestNote(estFreq);
+note = notes(numNote);
+set(handles.noteDisplay, 'String', note);
+
+idealFreq = freqs(numNote);
+set(handles.idealFrequency, 'String', idealFreq);
+
+difference = estFreqidealFreq
+
 
 analyseOutSignal(outSignal,handles);
+
+set(handles.playOutSignal, 'Enable', 'on');
    
+
+function numNote = getClosestNote(frequency)
+global freqs;
+%From:
+%http://desk.stinkpot.org:8080/tricks/index.php/2006/03/in-matlab-find-the-array-position-of-an-entry-closest-to-some-arbitrary-value/
+[trash, array_position] = min(abs(freqs - frequency));
+numNote = array_position;
 
 function Hd = lowpassFilter()
 %Returns a discrete-time filter object.
@@ -248,8 +273,8 @@ function Hd = lowpassFilter()
 % All frequency values are in Hz.
 global Fs;
 
-Fpass = 1050;        % Passband Frequency
-Fstop = 1100;        % Stopband Frequency
+Fpass = 1100;        % Passband Frequency
+Fstop = 1150;        % Stopband Frequency
 Apass = 1;           % Passband Ripple (dB)
 Astop = 80;          % Stopband Attenuation (dB)
 match = 'passband';  % Band to match exactly
