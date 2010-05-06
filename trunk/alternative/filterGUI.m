@@ -22,7 +22,7 @@ function varargout = filterGUI(varargin)
 
 % Edit the above text to modify the response to help filterGUI
 
-% Last Modified by GUIDE v2.5 05-May-2010 01:14:02
+% Last Modified by GUIDE v2.5 05-May-2010 15:51:23
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -178,21 +178,18 @@ global inSignal;
 global Fs;
 sound(inSignal, Fs);
 
-function numCrossings = findZeroCrossings(signal)
+function numCrossings = findZeroCrossings(signal, handles)
     global Fs;
     global start;
     global duration;
-    
-    N = length(signal);
-    signalDuration = N/Fs;
-    
+        
     numCrossings = 0;
     prev = 0;
-    start = 0.5 * Fs * signalDuration;
-    duration = 0.2 * Fs * signalDuration;
-    thresh = 0.00000001;
+    start = str2num(get(handles.measureStart,'String')) * Fs;
+    duration = str2num(get(handles.measureDuration,'String')) * Fs;
+    dBthresh = str2num(get(handles.measureThreshold,'String'));
+    thresh = power(10,(dBthresh / 20));
     
-    max(signal)
     % increment counter whenever sign changes
     for i = start:1:start+duration
         if(abs(signal(i)) > thresh && abs(prev) > thresh)
@@ -220,6 +217,7 @@ global duration;
 global start;
 
 freqs = [523.25, 587.33, 659.26, 698.46, 783.99, 880.00, 987.77, 1046.50];
+sampFreqs = [537, 590, 652, 706, 780, 860, 970, 1029];
 notes = {'lDo', 're', 'mi', 'fa', 'sol', 'la', 'si', 'hDo'};
 
 set(handles.statusBar, 'String', 'Generating filters...');
@@ -247,7 +245,7 @@ analyseOutSignal(outSignal,handles);
 
 %count the number of zero crossings
 set(handles.statusBar, 'String', 'Counting the number of zero crossings...');
-numCrossingsOutSignal = findZeroCrossings(outSignal);
+numCrossingsOutSignal = findZeroCrossings(outSignal, handles);
 
 %frequency = half of number of zero crossings
 estFreq = numCrossingsOutSignal / 2;
@@ -258,15 +256,22 @@ numNote = getClosestNote(estFreq);
 note = notes(numNote);
 set(handles.noteDisplay, 'String', note);
 
-%get literal note name
+%get literal noteDisplay name
 idealFreq = freqs(numNote);
 set(handles.idealFrequency, 'String', idealFreq);
 
-%calculate difference between estimated and ideal frequency
+%calculate freqDifference between estimated and ideal frequency
 difference = estFreq - idealFreq;
 set(handles.freqDifference, 'String', difference);
 
+%difference between estimated and our excel fft freq
+sampFreq = sampFreqs(numNote);
+fftDifference = estFreq - sampFreq;
+set(handles.diffWithFft, 'String', fftDifference);
+
 set(handles.playOutSignal, 'Enable', 'on');
+
+set(handles.statusBar, 'String', 'All systems ready...');
 
 %overlay region of intrest (the part of the signal which we have measured)
 %http://blogs.mathworks.com/desktop/2008/08/25/overlaying-information-on-a-
@@ -340,3 +345,74 @@ h  = fdesign.highpass(Fstop, Fpass, Astop, Apass, Fs);
 Hd = design(h, 'cheby1', 'MatchExactly', match);
 
 % [EOF]
+
+
+
+function measureStart_Callback(hObject, eventdata, handles)
+% hObject    handle to measureStart (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of measureStart as text
+%        str2double(get(hObject,'String')) returns contents of measureStart as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function measureStart_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to measureStart (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function measureDuration_Callback(hObject, eventdata, handles)
+% hObject    handle to measureDuration (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of measureDuration as text
+%        str2double(get(hObject,'String')) returns contents of measureDuration as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function measureDuration_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to measureDuration (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function measureThreshold_Callback(hObject, eventdata, handles)
+% hObject    handle to measureThreshold (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of measureThreshold as text
+%        str2double(get(hObject,'String')) returns contents of measureThreshold as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function measureThreshold_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to measureThreshold (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
