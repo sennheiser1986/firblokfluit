@@ -188,7 +188,7 @@ function numCrossings = findZeroCrossings(signal, handles)
     start = str2num(get(handles.measureStart,'String')) * Fs;
     duration = str2num(get(handles.measureDuration,'String')) * Fs;
     dBthresh = str2num(get(handles.measureThreshold,'String'));
-    thresh = power(10,(dBthresh / 20));
+    thresh = power(10,(dBthresh / 20))
     
     % increment counter whenever sign changes
     for i = start:1:start+duration
