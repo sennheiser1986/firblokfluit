@@ -2,6 +2,9 @@ library ieee;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
+library Const_lib;
+use Const_lib.Constants_pack.all;
+
 ENTITY ZeroCrossingsDetector IS
 	PORT (
 		ready               : in std_logic;
