@@ -1,7 +1,7 @@
 Package Constants_pack is
 
 	constant Threshold       : real    := 0.0001;
-	constant SampleFrequency : integer := 44100;
+	constant SampleFrequency : integer := 48000;
 	constant ClockFrequency  : integer := 100000000;
 	
 end Constants_pack;

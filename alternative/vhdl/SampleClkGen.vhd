@@ -14,7 +14,7 @@ architecture behav of SampleClkGen is
 		count <= count + 1;
 	end if;
 	if count >= (ClockFrequency/SampleFrequency) then
-		count <= 0;
+		count <= '0';
 	end if;
 	if count < (ClockFrequency/SampleFrequency)/2 then
 		SampleClk <= '1';
