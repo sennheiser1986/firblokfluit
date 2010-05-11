@@ -1,7 +1,11 @@
+library ieee;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+
 ENTITY LevelDetector IS
 	PORT (
-		SignalIn            : in std_logic;
-		StartCounter    : out boolean;
+		Filter_out      : in std_logic_vector(15 DOWNTO 00);
+		StartCounter    : out std_logic;
 		
 	);
 end LevelDetector;
@@ -9,6 +13,9 @@ end LevelDetector;
 architecture behav of LevelDetector is
 	
 	begin
-	StartCounter <= abs(SignalIn)>threshold;
-
+	if(abs(Filter_out)>threshold)
+		StartCounter <= '1';
+	else 
+		StartCounter <= '0';
+	end if;
 end behav;

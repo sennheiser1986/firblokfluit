@@ -1,22 +1,27 @@
+library ieee;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+
 ENTITY ZeroCrossingsDetector IS
 	PORT (
-		SampleClk                 : in std_logic;
-		SignalIn            : in std_logic;
-		CrossingDetected    : out boolean;
-		
+		ready               : in std_logic;
+		Filter_out          : in std_logic_vector(15 DOWNTO 0)  -- sfix16_En10
+		CrossingDetected    : out std_logic;
 	);
 end ZeroCrossingsDetector;
 
 
 architecture behav of ZeroCrossingsDetector is
-	signal  prevSample, currSample : ...
-	boolean posPrevSign,posCurrSign
+	signal prevSample, currSample  : std_logic_vector(15 DOWNTO 0) ;
+	signal posPrevSign,posCurrSign : boolean;
 	
-	currSample <= SignalIn;
-	
-	process(sampleclk)
 	begin
-	if rising_edge(sampleclk) then
+	
+	currSample <= Filter_out;
+	
+	process(ready)
+	begin
+	if rising_edge(ready) then
 		if abs(prevSamp)>threshold and abs(currSample)>threshold then
 			if prevSample>Threshold then
 				posPrevSign <= '1';

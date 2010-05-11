@@ -1,14 +1,16 @@
+library ieee;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+
 ENTITY FreqCalc IS
 	PORT (
-		SampleTime          : in std_logic;
-		Count               : in std_logic;
-		Frequency           : out std_logic;
+		SampleTime          : in std_logic_vector(15 DOWNTO 0);
+		Count               : in std_logic_vector(15 DOWNTO 0);
+		Frequency           : out std_logic_vector(10 DOWNTO 0);;
 		
 	);
 end FreqCalc;
 
-architecture behav of FreqCalc is
-	
-	Frequency <= ((Count/2)/SampleTime)/SampleFrequency;
-	
+architecture behav of FreqCalc is	
+	Frequency <= ((Count/2)/SampleTime)/ClockFrequency;
 end behav;
