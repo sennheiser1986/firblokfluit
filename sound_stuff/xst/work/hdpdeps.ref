@@ -1,0 +1,92 @@
+V3 46
+FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/Constants_pack.vhd" 2010/05/14.13:13:55 K.39
+FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/Counter.vhd" 2010/05/19.16:02:38 K.39
+EN work/Counter 1274280831 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/Counter.vhd" \
+      PB ieee/std_logic_1164 1217055545 PH ieee/NUMERIC_STD 1217055545 \
+      LB Const_lib PB Const_lib/Constants_pack 1274280814
+AR work/Counter/behav 1274280832 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/Counter.vhd" \
+      EN work/Counter 1274280831
+FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/dc97.vhd" 2010/05/14.13:13:55 K.39
+PH work/pkg_dc97 1274280815 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/dc97.vhd" \
+      PB ieee/std_logic_1164 1217055545 CD dc97 CD dc97cmd
+PB work/pkg_dc97 1274280816 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/dc97.vhd" \
+      PH work/pkg_dc97 1274280815
+EN work/dc97 1274280817 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/dc97.vhd" \
+      PB ieee/std_logic_1164 1217055545 PB ieee/std_logic_arith 1217055546 \
+      PB ieee/STD_LOGIC_UNSIGNED 1217055547
+AR work/dc97/dc97_arch 1274280818 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/dc97.vhd" EN work/dc97 1274280817
+EN work/dc97cmd 1274280819 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/dc97.vhd" \
+      PB ieee/std_logic_1164 1217055545 PB ieee/std_logic_arith 1217055546 \
+      PB ieee/STD_LOGIC_UNSIGNED 1217055547
+AR work/dc97cmd/dc97cmd_arch 1274280820 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/dc97.vhd" \
+      EN work/dc97cmd 1274280819
+FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/filter.vhd" 2010/05/14.13:13:53 K.39
+EN work/filter 1274280821 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/filter.vhd" \
+      PB ieee/std_logic_1164 1217055545 PH ieee/NUMERIC_STD 1217055545
+AR work/filter/rtl 1274280822 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/filter.vhd" \
+      EN work/filter 1274280821
+FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/FreqCalc.vhd" 2010/05/19.16:53:26 K.39
+EN work/FreqCalc 1274280823 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/FreqCalc.vhd" \
+      PB ieee/std_logic_1164 1217055545 PH ieee/NUMERIC_STD 1217055545 \
+      LB Const_lib PB Const_lib/Constants_pack 1274280814
+AR work/FreqCalc/behav 1274280824 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/FreqCalc.vhd" \
+      EN work/FreqCalc 1274280823
+FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/LevelDetector.vhd" 2010/05/18.23:40:15 K.39
+EN work/LevelDetector 1274280825 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/LevelDetector.vhd" \
+      PB ieee/std_logic_1164 1217055545 PH ieee/NUMERIC_STD 1217055545 \
+      LB Const_lib PB Const_lib/Constants_pack 1274280814
+AR work/LevelDetector/behav 1274280826 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/LevelDetector.vhd" \
+      EN work/LevelDetector 1274280825
+FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/SampleClkGen.vhd" 2010/05/14.13:13:55 K.39
+EN work/SampleClkGen 0 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/SampleClkGen.vhd"
+AR work/SampleClkGen/behav 0 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/SampleClkGen.vhd" \
+      EN work/SampleClkGen 0
+FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/schema.vhf" 2010/05/14.15:20:26 K.39
+EN work/schema 0 FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/schema.vhf" \
+      PB ieee/std_logic_1164 1217055545 PH ieee/NUMERIC_STD 1217055545 LB UNISIM \
+      PH unisim/VCOMPONENTS 1217055545
+AR work/schema/BEHAVIORAL 0 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/schema.vhf" \
+      EN work/schema 0 CP dc97 CP filter CP LevelDetector CP ZeroCrossingsDetector \
+      CP Timer CP Counter CP FreqCalc
+FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/Timer.vhd" 2010/05/18.23:23:00 K.39
+EN work/Timer 1274280827 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/Timer.vhd" \
+      PB ieee/std_logic_1164 1217055545 PH ieee/NUMERIC_STD 1217055545 \
+      LB Const_lib PB Const_lib/Constants_pack 1274280814
+AR work/Timer/behav 1274280828 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/Timer.vhd" \
+      EN work/Timer 1274280827
+FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/topschema.vhf" 2010/05/19.16:43:18 K.39
+EN work/topschema 1274280833 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/topschema.vhf" \
+      PB ieee/std_logic_1164 1217055545 PH ieee/NUMERIC_STD 1217055545 LB UNISIM \
+      PH unisim/VCOMPONENTS 1217055545
+AR work/topschema/BEHAVIORAL 1274280834 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/topschema.vhf" \
+      EN work/topschema 1274280833 CP dc97 CP filter CP FreqCalc CP LevelDetector \
+      CP Timer CP ZeroCrossingsDetector CP Counter
+FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/ZeroCrossingsDetector.vhd" 2010/05/18.23:29:49 K.39
+EN work/ZeroCrossingsDetector 1274280829 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/ZeroCrossingsDetector.vhd" \
+      PB ieee/std_logic_1164 1217055545 PH ieee/NUMERIC_STD 1217055545 \
+      LB Const_lib PB Const_lib/Constants_pack 1274280814
+AR work/ZeroCrossingsDetector/behav 1274280830 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/ZeroCrossingsDetector.vhd" \
+      EN work/ZeroCrossingsDetector 1274280829

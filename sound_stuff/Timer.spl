@@ -1,0 +1,7 @@
+[Inputs]
+Clk
+StartCounter
+ReachedTarget
+[Outputs]
+=SampleTime[15:0]=
+[BiDir]

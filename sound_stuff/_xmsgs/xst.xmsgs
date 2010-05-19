@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- IMPORTANT: This is an internal file that has been generated
+     by the Xilinx ISE software.  Any direct editing or
+     changes made to this file may result in unpredictable
+     behavior or data corruption.  It is strongly advised that
+     users do not edit the contents of this file. -->
+<messages>
+<msg type="warning" file="Xst" num="753" delta="unknown" >&quot;<arg fmt="%s" index="1">G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/topschema.vhf</arg>&quot; line <arg fmt="%d" index="2">108</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">ac97_sdata_o</arg>&apos; of component &apos;<arg fmt="%s" index="4">dc97</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="unknown" >&quot;<arg fmt="%s" index="1">G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/topschema.vhf</arg>&quot; line <arg fmt="%d" index="2">108</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">ac97_sync</arg>&apos; of component &apos;<arg fmt="%s" index="4">dc97</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="unknown" >&quot;<arg fmt="%s" index="1">G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/topschema.vhf</arg>&quot; line <arg fmt="%d" index="2">108</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">ac97_reset</arg>&apos; of component &apos;<arg fmt="%s" index="4">dc97</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="unknown" >&quot;<arg fmt="%s" index="1">G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/topschema.vhf</arg>&quot; line <arg fmt="%d" index="2">108</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">L_i</arg>&apos; of component &apos;<arg fmt="%s" index="4">dc97</arg>&apos;.
+</msg>
+
+<msg type="error" file="Xst" num="769" delta="unknown" >&quot;<arg fmt="%s" index="1">G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/FreqCalc.vhd</arg>&quot; line <arg fmt="%d" index="2">24</arg>: Operator &lt;<arg fmt="%s" index="3">INVALID OPERATOR</arg>&gt; must have constant operands or first operand must be power of 2
+</msg>
+
+</messages>
+

@@ -1,0 +1,176 @@
+Release 10.1.03 - xst K.39 (nt)
+Copyright (c) 1995-2008 Xilinx, Inc.  All rights reserved.
+--> Parameter TMPDIR set to G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/xst/projnav.tmp
+
+
+Total REAL time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 0.19 secs
+ 
+--> Parameter xsthdpdir set to G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/xst
+
+
+Total REAL time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 0.19 secs
+ 
+--> Reading design: topschema.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Compilation
+  3) Design Hierarchy Analysis
+  4) HDL Analysis
+  5) HDL Synthesis
+     5.1) HDL Synthesis Report
+  6) Advanced HDL Synthesis
+     6.1) Advanced HDL Synthesis Report
+  7) Low Level Synthesis
+  8) Partition Report
+  9) Final Report
+     9.1) Device utilization summary
+     9.2) Partition Resource Summary
+     9.3) TIMING REPORT
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : "topschema.prj"
+Input Format                       : mixed
+Ignore Synthesis Constraint File   : NO
+
+---- Target Parameters
+Output File Name                   : "topschema"
+Output Format                      : NGC
+Target Device                      : xc2vp20-7-fg676
+
+---- Source Options
+Top Module Name                    : topschema
+Automatic FSM Extraction           : YES
+FSM Encoding Algorithm             : Auto
+Safe Implementation                : No
+FSM Style                          : lut
+RAM Extraction                     : Yes
+RAM Style                          : Auto
+ROM Extraction                     : Yes
+Mux Style                          : Auto
+Decoder Extraction                 : YES
+Priority Encoder Extraction        : YES
+Shift Register Extraction          : YES
+Logical Shifter Extraction         : YES
+XOR Collapsing                     : YES
+ROM Style                          : Auto
+Mux Extraction                     : YES
+Resource Sharing                   : YES
+Asynchronous To Synchronous        : NO
+Multiplier Style                   : auto
+Automatic Register Balancing       : No
+
+---- Target Options
+Add IO Buffers                     : YES
+Global Maximum Fanout              : 500
+Add Generic Clock Buffer(BUFG)     : 16
+Register Duplication               : YES
+Slice Packing                      : YES
+Optimize Instantiated Primitives   : NO
+Convert Tristates To Logic         : Yes
+Use Clock Enable                   : Yes
+Use Synchronous Set                : Yes
+Use Synchronous Reset              : Yes
+Pack IO Registers into IOBs        : auto
+Equivalent register Removal        : YES
+
+---- General Options
+Optimization Goal                  : Speed
+Optimization Effort                : 1
+Library Search Order               : topschema.lso
+Keep Hierarchy                     : NO
+Netlist Hierarchy                  : as_optimized
+RTL Output                         : Yes
+Global Optimization                : AllClockNets
+Read Cores                         : YES
+Write Timing Constraints           : NO
+Cross Clock Analysis               : NO
+Hierarchy Separator                : /
+Bus Delimiter                      : <>
+Case Specifier                     : maintain
+Slice Utilization Ratio            : 100
+BRAM Utilization Ratio             : 100
+Verilog 2001                       : YES
+Auto BRAM Packing                  : NO
+Slice Utilization Ratio Delta      : 5
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Compilation                              *
+=========================================================================
+Compiling vhdl file "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/Constants_pack.vhd" in Library Const_lib.
+Architecture constants_pack of Entity constants_pack is up to date.
+Compiling vhdl file "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/dc97.vhd" in Library work.
+Architecture pkg_dc97 of Entity pkg_dc97 is up to date.
+Architecture dc97_arch of Entity dc97 is up to date.
+Architecture dc97cmd_arch of Entity dc97cmd is up to date.
+Compiling vhdl file "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/filter.vhd" in Library work.
+Architecture rtl of Entity filter is up to date.
+Compiling vhdl file "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/FreqCalc.vhd" in Library work.
+Entity <freqcalc> compiled.
+Entity <freqcalc> (Architecture <behav>) compiled.
+Compiling vhdl file "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/LevelDetector.vhd" in Library work.
+Architecture behav of Entity leveldetector is up to date.
+Compiling vhdl file "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/Timer.vhd" in Library work.
+Architecture behav of Entity timer is up to date.
+Compiling vhdl file "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/ZeroCrossingsDetector.vhd" in Library work.
+Architecture behav of Entity zerocrossingsdetector is up to date.
+Compiling vhdl file "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/Counter.vhd" in Library work.
+Architecture behav of Entity counter is up to date.
+Compiling vhdl file "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/topschema.vhf" in Library work.
+Architecture behavioral of Entity topschema is up to date.
+
+=========================================================================
+*                     Design Hierarchy Analysis                         *
+=========================================================================
+Analyzing hierarchy for entity <topschema> in library <work> (architecture <behavioral>).
+
+Analyzing hierarchy for entity <dc97> in library <work> (architecture <dc97_arch>).
+
+Analyzing hierarchy for entity <filter> in library <work> (architecture <rtl>).
+
+Analyzing hierarchy for entity <FreqCalc> in library <work> (architecture <behav>).
+
+Analyzing hierarchy for entity <LevelDetector> in library <work> (architecture <behav>).
+
+Analyzing hierarchy for entity <Timer> in library <work> (architecture <behav>).
+
+Analyzing hierarchy for entity <ZeroCrossingsDetector> in library <work> (architecture <behav>).
+
+Analyzing hierarchy for entity <Counter> in library <work> (architecture <behav>).
+
+
+=========================================================================
+*                            HDL Analysis                               *
+=========================================================================
+Analyzing Entity <topschema> in library <work> (Architecture <behavioral>).
+WARNING:Xst:753 - "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/topschema.vhf" line 108: Unconnected output port 'ac97_sdata_o' of component 'dc97'.
+WARNING:Xst:753 - "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/topschema.vhf" line 108: Unconnected output port 'ac97_sync' of component 'dc97'.
+WARNING:Xst:753 - "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/topschema.vhf" line 108: Unconnected output port 'ac97_reset' of component 'dc97'.
+WARNING:Xst:753 - "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/topschema.vhf" line 108: Unconnected output port 'L_i' of component 'dc97'.
+Entity <topschema> analyzed. Unit <topschema> generated.
+
+Analyzing Entity <dc97> in library <work> (Architecture <dc97_arch>).
+Entity <dc97> analyzed. Unit <dc97> generated.
+
+Analyzing Entity <filter> in library <work> (Architecture <rtl>).
+Entity <filter> analyzed. Unit <filter> generated.
+
+Analyzing Entity <FreqCalc> in library <work> (Architecture <behav>).
+ERROR:Xst:769 - "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/FreqCalc.vhd" line 24: Operator <INVALID OPERATOR> must have constant operands or first operand must be power of 2
+--> 
+
+Total memory usage is 175032 kilobytes
+
+Number of errors   :    1 (   0 filtered)
+Number of warnings :    4 (   0 filtered)
+Number of infos    :    0 (   0 filtered)
+

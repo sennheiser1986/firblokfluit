@@ -1,0 +1,6 @@
+sch2vhdl -intstyle ise -family virtex2p -flat -suppress -w "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/schema.sch" schema.vhf
+xst -ise "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/sound_stuff.ise" -intstyle ise -ifn "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/schema.xst" -ofn "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/schema.syr"
+sch2vhdl -intstyle ise -family virtex2p -flat -suppress -w "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/schema.sch" schema.vhf
+xst -ise "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/sound_stuff.ise" -intstyle ise -ifn "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/schema.xst" -ofn "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/schema.syr"
+xst -ise "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/sound_stuff.ise" -intstyle ise -ifn "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/schema.xst" -ofn "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/schema.syr"
+xst -ise "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/sound_stuff.ise" -intstyle ise -ifn "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/schema.xst" -ofn "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/schema.syr"
