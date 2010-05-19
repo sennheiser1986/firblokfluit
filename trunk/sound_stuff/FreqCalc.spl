@@ -1,0 +1,6 @@
+[Inputs]
+=SampleTime[15:0]=
+=Count[15:0]=
+[Outputs]
+=Frequency[10:0]=
+[BiDir]

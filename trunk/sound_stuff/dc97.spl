@@ -1,0 +1,17 @@
+[Inputs]
+reset_n
+clk
+ac97_sdata_i
+ac97_bitclk
+=L_o[15:0]=
+=R_o[15:0]=
+=cmd_addr[7:0]=
+=cmd_data[15:0]=
+[Outputs]
+ac97_sdata_o
+ac97_sync
+ac97_reset
+ready
+=L_i[15:0]=
+=R_i[15:0]=
+[BiDir]

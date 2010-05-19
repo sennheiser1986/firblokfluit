@@ -1,0 +1,2 @@
+vhdl Const_lib "G:\School sem2\LabMMPDS\firblokfluit\sound_stuff\Constants_pack.vhd"
+vhdl work "G:\School sem2\LabMMPDS\firblokfluit\sound_stuff\ZeroCrossingsDetector.vhd"

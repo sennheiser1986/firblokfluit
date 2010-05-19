@@ -1,0 +1,8 @@
+V3 3
+FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/Constants_pack.vhd" 2010/05/18.23:36:16 K.39
+PH Const_lib/Constants_pack 1274280813 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/Constants_pack.vhd" \
+      PB ieee/std_logic_1164 1217055545 PH ieee/NUMERIC_STD 1217055545
+PB Const_lib/Constants_pack 1274280814 \
+      FL "G:/School sem2/LabMMPDS/firblokfluit/sound_stuff/Constants_pack.vhd" \
+      PH Const_lib/Constants_pack 1274280813

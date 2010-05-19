@@ -1,0 +1,8 @@
+[Inputs]
+ready
+StartCounter
+CrossingDetected
+[Outputs]
+ReachedTarget
+=Count[15:0]=
+[BiDir]
